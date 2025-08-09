@@ -1,0 +1,818 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Joseph Horn — Painter & Visual Artist</title>
+  <meta name="description" content="Portfolio website of Joseph Horn, a New Jersey-based painter and visual artist. Explore paintings and drawings, view portfolio, and get in touch for commissions." />
+  <meta property="og:title" content="Joseph Horn — Painter & Visual Artist" />
+  <meta property="og:description" content="Explore the art of Joseph Horn: paintings, drawings, and mixed media. Based in New Jersey. Commissions welcome." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://i.postimg.cc/9fQ9fz9F/portfolio1.jpg" />
+  <meta property="og:url" content="." />
+  <meta name="theme-color" content="#6a3df0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg:#0f0b1a;
+      --card:#151027;
+      --text:#f4f1ff;
+      --muted:#cfc6f9;
+      --accent:#6a3df0;     /* refined purple */
+      --accent-2:#f4c542;   /* warm golden accent */
+      --stroke:#2b2146;
+      --white:#ffffff;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      background: radial-gradient(1200px 700px at 10% 10%, #1a1430 0%, #0f0b1a 55%) no-repeat,
+                  radial-gradient(900px 600px at 90% 0%, #231a44 0%, #0f0b1a 55%) no-repeat,
+                  var(--bg);
+      font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    /* Header / Nav */
+    header{
+      position:sticky;top:0;z-index:1000;
+      backdrop-filter: saturate(140%) blur(14px);
+      background: linear-gradient(to bottom, rgba(15,11,26,.85), rgba(15,11,26,.65));
+      border-bottom:1px solid var(--stroke);
+    }
+    .nav{
+      max-width:1200px;margin:0 auto;
+      padding:14px 20px;display:flex;align-items:center;gap:18px;
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand-mark{
+      width:38px;height:38px;border-radius:12px;
+      background: conic-gradient(from 180deg at 50% 50%, var(--accent), #9e7bff 30%, var(--accent-2) 65%, var(--accent));
+      border:1px solid rgba(255,255,255,.15);box-shadow:0 10px 30px rgba(0,0,0,.35) inset;
+      display:grid;place-items:center;color:#120a25;font-weight:800
+    }
+    .brand h1{
+      margin:0;font-size:18px;letter-spacing:.4px;font-weight:700
+    }
+    nav ul{margin:0;padding:0;list-style:none;display:flex;gap:12px;flex-wrap:wrap}
+    nav a{
+      padding:10px 12px;border-radius:10px;color:var(--muted);border:1px solid transparent;
+      transition:all .2s ease;
+    }
+    nav a:hover{color:var(--white);background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.08)}
+    nav a.active{
+      color:var(--white);
+      background:linear-gradient(135deg, rgba(106,61,240,.35), rgba(244,197,66,.2));
+      border-color:rgba(255,255,255,.2)
+    }
+    .spacer{flex:1}
+    .cta{
+      padding:9px 14px;border-radius:12px;font-weight:700;
+      background:linear-gradient(135deg, var(--accent), #9e7bff);
+      color:#0f0920;border:1px solid rgba(255,255,255,.25)
+    }
+    .cta:hover{filter:brightness(1.05)}
+    main{min-height:60vh}
+    section.page{display:none;opacity:0;transform:translateY(6px);transition:opacity .35s ease, transform .35s ease}
+    section.page.active{display:block;opacity:1;transform:none}
+    .container{max-width:1200px;margin:0 auto;padding:40px 20px}
+    /* Hero Slider */
+    .hero{
+      position:relative;min-height:78vh;display:grid;place-items:center;overflow:hidden;border-bottom:1px solid var(--stroke)
+    }
+    .slides{position:absolute;inset:0;overflow:hidden}
+    .slide{
+      position:absolute;inset:0;opacity:0;transition:opacity 1s ease, transform 10s ease;
+      background-size:cover;background-position:center;
+      filter:saturate(102%) contrast(98%)
+    }
+    .slide.active{opacity:1;transform:scale(1.06)}
+    .hero-overlay{
+      position:relative;z-index:2;text-align:center;padding:0 18px;max-width:900px
+    }
+    .eyebrow{
+      display:inline-flex;gap:10px;align-items:center;margin-bottom:14px;
+      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);
+      padding:8px 12px;border-radius:999px;color:var(--muted);font-size:13px
+    }
+    .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+    .hero h2{
+      font-family:"Playfair Display",serif;font-weight:700;
+      font-size:clamp(34px,4.5vw,64px);line-height:1.08;margin:0 0 14px
+    }
+    .hero p{margin:0 auto 22px;color:#e9e3ff;font-size:clamp(15px,1.4vw,18px)}
+    .hero-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2);cursor:pointer
+    }
+    .btn.primary{background:linear-gradient(135deg, var(--accent), #9e7bff);color:#0f0920;font-weight:700}
+    .btn.ghost{background:rgba(255,255,255,.06);color:var(--white)}
+    .dots{
+      position:absolute;bottom:16px;left:0;right:0;display:flex;justify-content:center;gap:8px;z-index:2
+    }
+    .dot-btn{
+      width:9px;height:9px;border-radius:50%;border:1px solid rgba(255,255,255,.5);background:transparent;cursor:pointer
+    }
+    .dot-btn.active{background:var(--white)}
+    /* About */
+    .about{
+      display:grid;grid-template-columns:1fr;gap:26px;align-items:center
+    }
+    @media (min-width:900px){.about{grid-template-columns:1.05fr .95fr;gap:36px}}
+    .about .photo{
+      position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--stroke);
+      box-shadow:0 15px 60px rgba(0,0,0,.35)
+    }
+    .about .photo::after{
+      content:"";position:absolute;inset:auto 0 0 0;height:42%;
+      background:linear-gradient(0deg, rgba(15,11,26,.9), transparent)
+    }
+    .about h3{
+      font-family:"Playfair Display",serif;font-size:36px;margin:0 0 10px
+    }
+    .tagline{color:var(--muted);margin-bottom:16px}
+    .about p{color:#efeaffcc}
+    .info-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border:1px solid var(--stroke);padding:14px;border-radius:12px;color:var(--muted)
+    }
+    /* Portfolio */
+    .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+    .filter-btn{padding:8px 12px;border-radius:10px;border:1px solid var(--stroke);background:rgba(255,255,255,.04);color:var(--muted);cursor:pointer}
+    .filter-btn.active{color:var(--white);border-color:rgba(255,255,255,.25);background:linear-gradient(135deg,rgba(106,61,240,.35),rgba(244,197,66,.2))}
+    .grid{
+      display:grid;grid-template-columns:repeat(1,1fr);gap:14px
+    }
+    @media (min-width:600px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (min-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
+    .item{
+      position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--stroke);
+      background:#120d22;cursor:zoom-in
+    }
+    .item img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;transition:transform .6s ease;filter:saturate(102%)}
+    .item:hover img{transform:scale(1.04)}
+    .item .label{
+      position:absolute;left:10px;bottom:10px;font-size:13px;
+      padding:6px 9px;border-radius:999px;background:rgba(0,0,0,.45);color:#fff;border:1px solid rgba(255,255,255,.18)
+    }
+    /* Lightbox */
+    .lightbox{position:fixed;inset:0;background:rgba(10,7,17,.88);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:2000}
+    .lightbox.open{display:flex}
+    .lightbox-content{position:relative;max-width:90vw;max-height:84vh}
+    .lightbox img{max-width:100%;max-height:84vh;border-radius:12px;border:1px solid rgba(255,255,255,.18);box-shadow:0 30px 80px rgba(0,0,0,.5)}
+    .lb-btn{
+      position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;
+      display:grid;place-items:center;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);cursor:pointer;color:#fff
+    }
+    .lb-prev{left:-54px}
+    .lb-next{right:-54px}
+    .lb-close{
+      position:absolute;top:-54px;right:0;width:42px;height:42px;border-radius:10px;display:grid;place-items:center;
+      border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);cursor:pointer
+    }
+    @media(max-width:700px){
+      .lb-prev{left:10px}.lb-next{right:10px}.lb-close{top:10px;right:10px}
+    }
+    /* Contact */
+    .contact-wrap{display:grid;grid-template-columns:1fr;gap:20px}
+    @media(min-width:900px){.contact-wrap{grid-template-columns:1fr 1fr}}
+    form{
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border:1px solid var(--stroke);padding:18px;border-radius:14px
+    }
+    .field{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+    label{font-size:13px;color:var(--muted)}
+    input,textarea{
+      padding:12px;border-radius:10px;border:1px solid var(--stroke);
+      background:rgba(255,255,255,.06);color:var(--white);outline:none
+    }
+    textarea{min-height:140px;resize:vertical}
+    .status{margin-top:10px;font-size:14px}
+    .status.ok{color:#7ef58f}.status.err{color:#ff8a8a}
+    .contact-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border:1px solid var(--stroke);padding:18px;border-radius:14px
+    }
+    /* Footer + subscribe */
+    footer{
+      border-top:1px solid var(--stroke);background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01))
+    }
+    .foot-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
+    @media(max-width:800px){.foot-grid{grid-template-columns:1fr}}
+    .subscribe{
+      display:flex;gap:8px;flex-wrap:wrap;margin-top:10px
+    }
+    .subscribe input{flex:1;min-width:220px}
+    .sub-status{margin-top:8px;font-size:14px}
+    /* Floating socials */
+    .float-wrap{position:fixed;right:16px;bottom:16px;display:flex;flex-direction:column;gap:10px;z-index:1500}
+    .float-btn{
+      width:54px;height:54px;border-radius:50%;display:grid;place-items:center;color:#fff;cursor:pointer;border:1px solid rgba(255,255,255,.25);
+      box-shadow:0 10px 30px rgba(0,0,0,.35)
+    }
+    .whatsapp{background:#25D366}
+    .tiktok{background:#000;border:1px solid #222}
+    /* Utility */
+    .lead{color:#efeaffd9}
+    .section-title{font-family:"Playfair Display",serif;font-size:30px;margin:0 0 6px}
+    .muted{color:var(--muted)}
+    .sr-only{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .slide{transition:none}
+      .slide.active{transform:none}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">JH</div>
+        <h1>Joseph Horn</h1>
+      </div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#home" class="navlink active">Home</a></li>
+          <li><a href="#about" class="navlink">About</a></li>
+          <li><a href="#portfolio" class="navlink">Portfolio</a></li>
+          <li><a href="#contact" class="navlink">Contact</a></li>
+          <li><a href="#privacy" class="navlink">Privacy</a></li>
+          <li><a href="#terms" class="navlink">Terms</a></li>
+        </ul>
+      </nav>
+      <div class="spacer"></div>
+      <a class="cta" href="#contact">Commissions Open</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section id="home" class="page active" role="region" aria-label="Home">
+      <div class="hero">
+        <div class="slides" id="heroSlides" aria-hidden="true">
+          <!-- Slides injected by JS -->
+        </div>
+        <div class="hero-overlay">
+          <div class="eyebrow"><span class="dot"></span> Painter • Drawing • Mixed Media</div>
+          <h2>Art with rhythm, light, and memory.</h2>
+          <p class="lead">I’m Joseph Horn — a New Jersey-based artist working across painting and drawing. I translate the pulse of everyday life into color, texture, and form.</p>
+          <div class="hero-actions">
+            <a href="#portfolio" class="btn primary">View Portfolio</a>
+            <a href="#about" class="btn ghost">About Joseph</a>
+          </div>
+        </div>
+        <div class="dots" id="dots" aria-label="Slider dots"></div>
+      </div>
+
+      <div class="container">
+        <div class="info-cards">
+          <div class="card">
+            <strong>Commissions</strong><br />
+            Custom paintings and drawings available. Let’s make something personal.
+          </div>
+          <div class="card">
+            <strong>Mediums</strong><br />
+            Acrylics, charcoal, ink, mixed media — on canvas and paper.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="page" role="region" aria-label="About Joseph Horn">
+      <div class="container">
+        <div class="about">
+          <div class="photo">
+            <img src="https://i.postimg.cc/K8NLFtRH/aboutmeimage.jpg" alt="Portrait of artist Joseph Horn" />
+          </div>
+          <div>
+            <h3>About Joseph</h3>
+            <div class="tagline">Painter & Visual Artist • Based in New Jersey</div>
+            <p>
+              I’m Joseph Horn, an artist who loves the way color can hold a feeling. I paint and draw to capture motion, music, and memory — the way city lights smear across a rainy window, the quiet of early mornings, the warmth of familiar faces. My work lives where intuition meets structure: bold shapes, layered textures, and rhythms that feel like jazz.
+            </p>
+            <p>
+              Inspiration finds me in everyday rituals: sketching on the train, studying shadows on a sidewalk, or listening to old records while the paint dries. I’m fascinated by how small moments become stories — and how those stories become art.
+            </p>
+            <div class="info-cards">
+              <div class="card">
+                <strong>Location</strong><br />New Jersey, USA
+              </div>
+              <div class="card">
+                <strong>Focus</strong><br />Painting, Drawing, Mixed Media
+              </div>
+              <div class="card">
+                <strong>Available</strong><br />Exhibitions & Commissions
+              </div>
+              <div class="card">
+                <strong>Contact</strong><br /><a href="tel:+18482366454">+1 (848) 236-6454</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="page" role="region" aria-label="Portfolio">
+      <div class="container">
+        <h3 class="section-title">Portfolio</h3>
+        <div class="muted" style="margin-bottom:12px">Selected works. Click any image to view larger.</div>
+
+        <div class="filters" aria-label="Filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="painting">Painting</button>
+          <button class="filter-btn" data-filter="drawing">Drawing</button>
+          <button class="filter-btn" data-filter="mixed">Mixed Media</button>
+        </div>
+
+        <div class="grid" id="portfolioGrid">
+          <!-- Portfolio items injected by JS -->
+        </div>
+      </div>
+
+      <!-- Lightbox -->
+      <div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="Image viewer">
+        <div class="lightbox-content">
+          <button class="lb-close" id="lbClose" aria-label="Close viewer">✕</button>
+          <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+          <img id="lbImg" alt="Artwork large view" />
+          <button class="lb-btn lb-next" id="lbNext" aria-label="Next">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="page" role="region" aria-label="Contact & Commissions">
+      <div class="container">
+        <h3 class="section-title">Contact</h3>
+        <p class="muted">For commissions, collaborations, or general inquiries, send a message below — it goes straight to my email.</p>
+
+        <div class="contact-wrap">
+          <form id="contactForm" action="https://formspree.io/f/xkgzkwav" method="POST">
+            <div class="field">
+              <label for="name">Your name</label>
+              <input id="name" name="name" type="text" placeholder="Jane Doe" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="_replyto" type="email" placeholder="you@example.com" required />
+            </div>
+            <div class="field">
+              <label for="subject">Subject</label>
+              <input id="subject" name="subject" type="text" placeholder="Commission request" />
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell me a bit about your project..." required></textarea>
+            </div>
+            <button class="btn primary" type="submit">Send message</button>
+            <div id="formStatus" class="status" aria-live="polite"></div>
+            <noscript>
+              <p class="muted">Note: With JavaScript disabled, you will be redirected by Formspree after submission.</p>
+            </noscript>
+          </form>
+
+          <div class="contact-card">
+            <h4 style="margin:0 0 10px">Direct</h4>
+            <p style="margin:0 0 10px">
+              Phone/WhatsApp: <a href="https://wa.me/18482366454" target="_blank" rel="noopener">+1 (848) 236-6454</a><br />
+              TikTok: <a href="https://www.tiktok.com/@joseph.horn5?_t=ZS-8yiqkNrpPU8&_r=1" target="_blank" rel="noopener">@joseph.horn5</a>
+            </p>
+            <p class="muted" style="margin:0">Located in New Jersey • Available worldwide</p>
+
+            <hr style="border:0;border-top:1px solid var(--stroke);margin:16px 0" />
+
+            <h4 style="margin:0 0 8px">Newsletter</h4>
+            <p class="muted" style="margin:0 0 10px">Get occasional updates on new work and shows.</p>
+            <form id="subscribeForm" class="subscribe" action="#" autocomplete="on">
+              <input type="email" id="subEmail" placeholder="your@email.com" required />
+              <button type="submit" class="btn ghost">Subscribe</button>
+            </form>
+            <div id="subStatus" class="sub-status" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRIVACY -->
+    <section id="privacy" class="page" role="region" aria-label="Privacy Policy">
+      <div class="container">
+        <h3 class="section-title">Privacy Policy</h3>
+        <p class="muted">Effective date: <span id="effectivePrivacy"></span></p>
+
+        <p>
+          This website is operated by Joseph Horn (“we”, “us”). We respect your privacy and are committed to protecting it. This policy explains what we collect, how we use it, and your choices.
+        </p>
+
+        <h4>Information we collect</h4>
+        <ul>
+          <li>Contact details you submit (name, email, message) via the contact form.</li>
+          <li>Newsletter email address if you subscribe.</li>
+          <li>Basic technical data (e.g., device/browser) that your browser may send; we do not run analytics here.</li>
+        </ul>
+
+        <h4>How we use information</h4>
+        <ul>
+          <li>To respond to inquiries and manage commissions.</li>
+          <li>To send optional newsletter updates (only if you subscribe).</li>
+          <li>To maintain site functionality and prevent abuse.</li>
+        </ul>
+
+        <h4>Third parties</h4>
+        <p>
+          We use Formspree to process contact form submissions. When you submit the form, your message is transmitted to Formspree and then delivered to our email.
+          See Formspree’s privacy practices on their website. Clicking external links (e.g., TikTok, WhatsApp) may take you to services with their own policies.
+        </p>
+
+        <h4>Data retention</h4>
+        <p>
+          We keep contact messages as long as needed to respond and maintain records. Newsletter emails are stored locally in your browser for demo purposes on this site.
+        </p>
+
+        <h4>Cookies and local storage</h4>
+        <p>
+          This site may use local storage for simple preferences (e.g., your newsletter subscription status). No advertising cookies are used.
+        </p>
+
+        <h4>Your rights</h4>
+        <p>
+          You may request that we update or delete information you’ve provided. Contact us via the form or WhatsApp at +1 (848) 236-6454.
+        </p>
+
+        <h4>Security</h4>
+        <p>
+          We take reasonable steps to protect your data. No method of transmission is 100% secure.
+        </p>
+
+        <h4>Children’s privacy</h4>
+        <p>
+          This site is not directed to children under 13, and we do not knowingly collect information from children.
+        </p>
+
+        <h4>Changes</h4>
+        <p>
+          We may update this policy from time to time. Changes will be posted on this page with an updated effective date.
+        </p>
+
+        <h4>Contact</h4>
+        <p>
+          Questions? Reach out via the contact form or WhatsApp: <a href="https://wa.me/18482366454" target="_blank" rel="noopener">+1 (848) 236-6454</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- TERMS -->
+    <section id="terms" class="page" role="region" aria-label="Terms of Service">
+      <div class="container">
+        <h3 class="section-title">Terms of Service</h3>
+        <p class="muted">Effective date: <span id="effectiveTerms"></span></p>
+
+        <h4>1) Overview</h4>
+        <p>
+          These Terms govern your use of this website and any purchases or commissions you make from Joseph Horn (“we”, “us”). By using this site, you agree to these Terms.
+        </p>
+
+        <h4>2) Use of the site</h4>
+        <p>
+          You agree not to misuse the site, attempt to breach security, or infringe on intellectual property rights.
+        </p>
+
+        <h4>3) Intellectual property</h4>
+        <p>
+          All artworks, images, and content on this site are the property of Joseph Horn and are protected by copyright. Do not reproduce or use them without written permission.
+        </p>
+
+        <h4>4) Commissions</h4>
+        <p>
+          Commission details (scope, size, medium, timeline, pricing) will be confirmed in writing. Deposits may be required and are generally non-refundable once materials are purchased or work has begun.
+        </p>
+
+        <h4>5) Sales, shipping, and returns</h4>
+        <p>
+          Original artworks and prints are final sale unless otherwise agreed. We take care in packaging; damage during transit will be handled case by case with the carrier.
+        </p>
+
+        <h4>6) Disclaimer</h4>
+        <p>
+          The site is provided “as is”. We make no warranties regarding uninterrupted or error-free operation.
+        </p>
+
+        <h4>7) Limitation of liability</h4>
+        <p>
+          To the maximum extent permitted by law, we are not liable for indirect or consequential damages arising from your use of the site.
+        </p>
+
+        <h4>8) Governing law</h4>
+        <p>
+          These Terms are governed by the laws of the State of New Jersey, USA.
+        </p>
+
+        <h4>9) Contact</h4>
+        <p>
+          For questions about these Terms, please contact us via the on-site form or WhatsApp at <a href="https://wa.me/18482366454" target="_blank" rel="noopener">+1 (848) 236-6454</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- Not Found (fallback, should auto-redirect) -->
+    <section id="not-found" class="page" role="region" aria-label="Not found">
+      <div class="container">
+        <h3 class="section-title">Page not found</h3>
+        <p class="muted">We couldn’t find that page. Redirecting to Home…</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot-grid">
+      <div>
+        <div class="brand" style="margin-bottom:10px">
+          <div class="brand-mark" aria-hidden="true">JH</div>
+          <h1>Joseph Horn</h1>
+        </div>
+        <p class="muted" style="max-width:560px">
+          Paintings and drawings that trace light, sound, and memory. Based in New Jersey. Available for commissions and collaborations.
+        </p>
+        <p class="muted">© <span id="year"></span> Joseph Horn. All rights reserved.</p>
+      </div>
+      <div>
+        <h4 style="margin:0 0 8px">Newsletter</h4>
+        <p class="muted" style="margin:0 0 10px">Subscribe for studio updates and new releases.</p>
+        <form id="subscribeForm2" class="subscribe" action="#">
+          <input type="email" id="subEmail2" placeholder="name@email.com" required />
+          <button type="submit" class="btn ghost">Subscribe</button>
+        </form>
+        <div id="subStatus2" class="sub-status" aria-live="polite"></div>
+        <p style="margin-top:14px">
+          <a href="#privacy">Privacy</a> • <a href="#terms">Terms</a> • <a href="#contact">Contact</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp and TikTok -->
+  <div class="float-wrap" aria-label="Quick contacts">
+    <a class="float-btn whatsapp" href="https://wa.me/18482366454" target="_blank" rel="noopener" title="Chat on WhatsApp" aria-label="WhatsApp">
+      <!-- WhatsApp SVG -->
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M20.52 3.48A11.87 11.87 0 0 0 12.04 0C5.46 0 .1 5.36.1 11.94c0 2.1.55 4.15 1.6 5.95L0 24l6.3-1.64a12 12 0 0 0 5.74 1.46h.01c6.58 0 11.94-5.36 11.94-11.94 0-3.19-1.24-6.19-3.47-8.4Zm-8.48 18.4h-.01a9.9 9.9 0 0 1-5.05-1.39l-.36-.22-3.74.97.99-3.64-.24-.37a9.93 9.93 0 1 1 8.41 4.65Zm5.45-7.46c-.3-.15-1.77-.86-2.05-.95-.28-.1-.48-.15-.68.15-.2.29-.78.95-.95 1.14-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.78-1.47-1.74-1.64-2.03-.17-.3-.02-.46.13-.61.14-.14.3-.36.45-.54.15-.2.2-.35.3-.58.1-.22.05-.43-.02-.6-.07-.15-.68-1.64-.93-2.24-.25-.6-.5-.5-.69-.5h-.58c-.2 0-.52.07-.79.36-.27.3-1.05 1.02-1.05 2.48 0 1.46 1.08 2.88 1.23 3.08.15.2 2.13 3.25 5.15 4.55.72.31 1.28.5 1.72.64.72.23 1.37.2 1.88.12.57-.09 1.77-.72 2.02-1.43.25-.7.25-1.31.18-1.43-.07-.12-.26-.2-.56-.35Z"/>
+      </svg>
+    </a>
+    <a class="float-btn tiktok" href="https://www.tiktok.com/@joseph.horn5?_t=ZS-8yiqkNrpPU8&_r=1" target="_blank" rel="noopener" title="Visit TikTok" aria-label="TikTok">
+      <!-- TikTok SVG -->
+      <svg width="24" height="24" viewBox="0 0 48 48" fill="#fff" aria-hidden="true">
+        <path d="M33.3 10.9c1.8 2.4 4.4 4 7.4 4.4v6.5c-2.7.3-5.4-.3-7.9-1.7v10.7c0 6.7-5.4 12.1-12.1 12.1S8.6 36.5 8.6 29.8s5.4-12.1 12.1-12.1c.6 0 1.3.1 1.9.2v6.8c-.6-.2-1.2-.3-1.9-.3-3 0-5.5 2.5-5.5 5.5s2.5 5.5 5.5 5.5 5.5-2.5 5.5-5.5V4.8h6.1c0 2.2.7 4.4 2 6.1Z"/>
+      </svg>
+    </a>
+  </div>
+
+  <script>
+    // ---------- Utilities ----------
+    const $ = (sel, ctx=document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+    const todayStr = () => new Date().toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});
+
+    // ---------- Router (hash-based; no 404) ----------
+    const routes = new Set(['#home','#about','#portfolio','#contact','#privacy','#terms']);
+    function navigate(hash){
+      const target = routes.has(hash) ? hash : '#home';
+      // set active section
+      $$('.page').forEach(sec => sec.classList.remove('active'));
+      const el = $(target);
+      if (el) {
+        el.classList.add('active');
+        window.scrollTo({top:0, behavior:'smooth'});
+      }
+      // set active nav
+      $$('.navlink').forEach(a => a.classList.toggle('active', a.getAttribute('href')===target));
+      // fallback section only used briefly if unknown
+      if(!routes.has(hash) && hash !== '') {
+        // show not-found briefly then redirect
+        const nf = $('#not-found');
+        if (nf) {
+          nf.classList.add('active');
+          setTimeout(()=>location.hash='#home', 900);
+        }
+      }
+    }
+    window.addEventListener('hashchange', () => navigate(location.hash));
+    window.addEventListener('DOMContentLoaded', () => navigate(location.hash || '#home'));
+
+    // ---------- Hero Slider ----------
+    const heroImages = [
+      "https://i.postimg.cc/9fQ9fz9F/portfolio1.jpg",
+      "https://i.postimg.cc/9fg7wVPP/portfolio2.jpg",
+      "https://i.postimg.cc/85qfwH0j/porfolio3.jpg",
+      "https://i.postimg.cc/3Nm4qvs9/porfolio4.jpg",
+      "https://i.postimg.cc/c1nnCpvY/portfolio5.jpg",
+      "https://i.postimg.cc/9FHq7L9k/porfolio6.jpg"
+    ];
+    const slidesWrap = $('#heroSlides');
+    const dotsWrap = $('#dots');
+    let slideIndex = 0, slideTimer;
+
+    function buildHero(){
+      heroImages.forEach((src,i)=>{
+        const d = document.createElement('div');
+        d.className = 'slide' + (i===0?' active':'');
+        d.style.backgroundImage = `url('${src}')`;
+        d.setAttribute('role','img');
+        d.setAttribute('aria-label',`Showcase image ${i+1}`);
+        slidesWrap.appendChild(d);
+
+        const b = document.createElement('button');
+        b.className = 'dot-btn' + (i===0?' active':'');
+        b.addEventListener('click', ()=>goToSlide(i,true));
+        dotsWrap.appendChild(b);
+      });
+      startSlides();
+    }
+    function goToSlide(i,manual=false){
+      const slides = $$('.slide', slidesWrap);
+      const dots = $$('.dot-btn', dotsWrap);
+      slides[slideIndex].classList.remove('active');
+      dots[slideIndex].classList.remove('active');
+      slideIndex = (i+slides.length)%slides.length;
+      slides[slideIndex].classList.add('active');
+      dots[slideIndex].classList.add('active');
+      if (manual) restartSlides();
+    }
+    function nextSlide(){ goToSlide(slideIndex+1); }
+    function startSlides(){ slideTimer = setInterval(nextSlide, 4200); }
+    function restartSlides(){ clearInterval(slideTimer); startSlides(); }
+    document.addEventListener('visibilitychange',()=>{ document.hidden ? clearInterval(slideTimer) : restartSlides(); });
+
+    // ---------- Portfolio Data ----------
+    const portfolioItems = [
+      {src:"https://i.postimg.cc/9fQ9fz9F/portfolio1.jpg", tag:"painting"},
+      {src:"https://i.postimg.cc/9fg7wVPP/portfolio2.jpg", tag:"painting"},
+      {src:"https://i.postimg.cc/85qfwH0j/porfolio3.jpg", tag:"drawing"},
+      {src:"https://i.postimg.cc/3Nm4qvs9/porfolio4.jpg", tag:"painting"},
+      {src:"https://i.postimg.cc/c1nnCpvY/portfolio5.jpg", tag:"mixed"},
+      {src:"https://i.postimg.cc/9FHq7L9k/porfolio6.jpg", tag:"painting"},
+      {src:"https://i.postimg.cc/65V4LCLp/porfolio7.jpg", tag:"drawing"},
+      {src:"https://i.postimg.cc/t4XZr72t/portfolio8.jpg", tag:"painting"},
+      {src:"https://i.postimg.cc/L8NqGRWd/porfolio9.jpg", tag:"drawing"},
+      {src:"https://i.postimg.cc/d037YpMh/porfolio10.jpg", tag:"painting"},
+      {src:"https://i.postimg.cc/mrnP2jR8/portfolio11.jpg", tag:"mixed"},
+      {src:"https://i.postimg.cc/tJQ7Fgs6/portfolio13.jpg", tag:"painting"},
+      {src:"https://i.postimg.cc/tJQ7Fgs6/portfolio13.jpg", tag:"drawing"},
+      {src:"https://i.postimg.cc/c4WrHryy/portfolio14.jpg", tag:"painting"},
+      {src:"https://i.postimg.cc/PrMN8TTL/portfolio15.jpg", tag:"drawing"},
+      {src:"https://i.postimg.cc/NjfF6Sjd/portfolio16.jpg", tag:"mixed"},
+      {src:"https://i.postimg.cc/9Q8MJb4C/portfolio17.jpg", tag:"painting"},
+      {src:"https://i.postimg.cc/DzSzDGss/portfolio18.jpg", tag:"mixed"},
+      {src:"https://i.postimg.cc/Pq0qkqz7/portfolio19.jpg", tag:"painting"},
+      {src:"https://i.postimg.cc/j5NSqrMS/portfolio20.jpg", tag:"drawing"},
+      {src:"https://i.postimg.cc/W4LKLLqn/portfolio21.jpg", tag:"painting"},
+      {src:"https://i.postimg.cc/FzT5NWXK/portfolio22.jpg", tag:"drawing"},
+      {src:"https://i.postimg.cc/vBGNTrzx/portfolio23.jpg", tag:"painting"},
+      {src:"https://i.postimg.cc/SRs17mHy/portfolio24.jpg", tag:"mixed"},
+      {src:"https://i.postimg.cc/jqgFqJJC/portfolio25.jpg", tag:"drawing"},
+      {src:"https://i.postimg.cc/sXfTsVjp/portfolio26.jpg", tag:"painting"},
+      {src:"https://i.postimg.cc/WzC8GgMn/portfolio27.jpg", tag:"mixed"},
+      {src:"https://i.postimg.cc/2SpT3djj/portfolio28.jpg", tag:"painting"},
+      {src:"https://i.postimg.cc/9MfYsJbb/portfolio29.jpg", tag:"drawing"},
+      {src:"https://i.postimg.cc/FRnVv3n4/portfolio30.jpg", tag:"painting"}
+    ];
+
+    // ---------- Render Portfolio ----------
+    const grid = $('#portfolioGrid');
+    let filtered = [...portfolioItems];
+    function renderGrid(){
+      grid.innerHTML = '';
+      filtered.forEach((item, idx) => {
+        const wrap = document.createElement('figure');
+        wrap.className = 'item';
+        wrap.dataset.index = idx; // index within 'filtered'
+        const img = document.createElement('img');
+        img.src = item.src;
+        img.loading = 'lazy';
+        img.alt = `Artwork ${idx+1} — ${item.tag}`;
+        wrap.appendChild(img);
+        const lab = document.createElement('figcaption');
+        lab.className = 'label';
+        lab.textContent = item.tag.charAt(0).toUpperCase() + item.tag.slice(1);
+        wrap.appendChild(lab);
+        wrap.addEventListener('click', ()=> openLightbox(idx));
+        grid.appendChild(wrap);
+      });
+    }
+
+    // Filters
+    $$('.filter-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        $$('.filter-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const type = btn.dataset.filter;
+        filtered = (type==='all') ? [...portfolioItems] : portfolioItems.filter(p=>p.tag===type);
+        renderGrid();
+      });
+    });
+
+    // ---------- Lightbox ----------
+    const lb = $('#lightbox');
+    const lbImg = $('#lbImg');
+    const lbPrev = $('#lbPrev');
+    const lbNext = $('#lbNext');
+    const lbClose = $('#lbClose');
+    let lbIndex = 0;
+
+    function openLightbox(i){
+      lbIndex = i;
+      updateLightbox();
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function updateLightbox(){
+      const item = filtered[lbIndex];
+      if(!item) return;
+      lbImg.src = item.src;
+      lbImg.alt = `Artwork large view — ${item.tag}`;
+    }
+    function closeLightbox(){
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    lbPrev.addEventListener('click', ()=>{ lbIndex = (lbIndex-1+filtered.length)%filtered.length; updateLightbox(); });
+    lbNext.addEventListener('click', ()=>{ lbIndex = (lbIndex+1)%filtered.length; updateLightbox(); });
+    lbClose.addEventListener('click', closeLightbox);
+    lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLightbox(); });
+    window.addEventListener('keydown', (e)=>{
+      if(!lb.classList.contains('open')) return;
+      if(e.key==='Escape') closeLightbox();
+      if(e.key==='ArrowLeft') lbPrev.click();
+      if(e.key==='ArrowRight') lbNext.click();
+    });
+
+    // ---------- Contact Form (Formspree) ----------
+    const contactForm = $('#contactForm');
+    const formStatus = $('#formStatus');
+    contactForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      formStatus.textContent = 'Sending...';
+      formStatus.className = 'status';
+      try{
+        const res = await fetch(contactForm.action, {
+          method:'POST',
+          headers:{ 'Accept':'application/json' },
+          body: new FormData(contactForm)
+        });
+        if(res.ok){
+          formStatus.textContent = 'Message sent successfully — thank you! I’ll get back to you soon.';
+          formStatus.classList.add('ok');
+          contactForm.reset();
+        }else{
+          const data = await res.json().catch(()=>({}));
+          throw new Error(data?.errors?.[0]?.message || 'Something went wrong.');
+        }
+      }catch(err){
+        formStatus.textContent = 'Could not send message. Please try again or reach me on WhatsApp.';
+        formStatus.classList.add('err');
+      }
+    });
+
+    // ---------- Newsletter (instant subscribe success) ----------
+    function hookSubscribe(formSel, inputSel, statusSel){
+      const form = $(formSel), input = $(inputSel), status = $(statusSel);
+      form.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const email = (input.value||'').trim();
+        if(!/^\S+@\S+\.\S+$/.test(email)){
+          status.textContent = 'Please enter a valid email address.';
+          status.style.color = '#ff8a8a';
+          return;
+        }
+        try{
+          localStorage.setItem('jh_subscriber', email);
+        }catch{}
+        status.textContent = 'Subscribed successfully — welcome!';
+        status.style.color = '#7ef58f';
+        form.reset();
+      });
+    }
+    hookSubscribe('#subscribeForm', '#subEmail', '#subStatus');
+    hookSubscribe('#subscribeForm2','#subEmail2','#subStatus2');
+
+    // ---------- Init ----------
+    document.addEventListener('DOMContentLoaded', ()=>{
+      $('#year').textContent = new Date().getFullYear();
+      $('#effectivePrivacy').textContent = todayStr();
+      $('#effectiveTerms').textContent = todayStr();
+      buildHero();
+      filtered = [...portfolioItems];
+      renderGrid();
+    });
+  </script>
+</body>
+</html>
